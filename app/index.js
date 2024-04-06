@@ -7,6 +7,10 @@ import { AlternateAuth } from '../components/AlternateAuth';
 import { AuthContext } from '../contexts/AuthContext';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import{router} from "expo-router"
+import { Theme } from '../theme/Theme';
+
+
+
 export default function Register(props) {
 const auth= useContext(AuthContext)
 const createAccount=(email,password)=>{
@@ -36,9 +40,10 @@ const createAccount=(email,password)=>{
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection:"column",
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: Theme.primaryLight,
+   
     justifyContent: 'center',
   },
 });
