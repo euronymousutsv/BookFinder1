@@ -1,7 +1,7 @@
 
 import { useContext } from 'react';
 import { AuthenticationForm } from '../components/AuthenticationForm';
-import { SafeAreaView,StyleSheet } from 'react-native';
+import { SafeAreaView,StyleSheet,Text,Button, View } from 'react-native';
 
 import { AlternateAuth } from '../components/AlternateAuth';
 import { AuthContext } from '../contexts/AuthContext';
@@ -30,7 +30,8 @@ const createAccount=(email,password)=>{
 
   return (
     <SafeAreaView style={styles.container}>
-    <AuthenticationForm title="Register for an account" action="Sign up"  handler={createAccount}/>
+    <Text style={{fontWeight:"bold", fontSize:40, color:"white"}}>Book Finder</Text>
+    <AuthenticationForm  title="Register for an account" action="Sign up"  handler={createAccount}/>
    <AlternateAuth text="Already have an account?"
    route="/login"
    linkText="Login"/>
@@ -42,8 +43,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection:"column",
     flex: 1,
-    backgroundColor: Theme.primaryLight,
+    backgroundColor: Theme.welcome,
    
     justifyContent: 'center',
   },
+  bookFinder: {
+    flex: 1,
+    justify: "around"
+
+  },
+ 
 });

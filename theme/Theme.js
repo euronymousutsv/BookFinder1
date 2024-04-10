@@ -9,4 +9,9 @@ export const Theme = {
     tertiaryLight: "hsl(88, 18.20%, 89.80%)",
     mid: "hsl(238, 13.00%, 36.10%)",
     dark: "hsl(250, 24.70%, 18.20%)",
+    welcome: "hsl(187, 90%, 61%)",
+    white:"hsl(0, 0%, 100%)",
+    orange:"hsl(20, 100%, 50%)",
+    lightorange:"hsl(20, 65%, 34%)"
+    
 }

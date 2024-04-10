@@ -59,7 +59,7 @@ export function AuthenticationForm ( props ) {
 
 const styles = StyleSheet.create({
     form: {
-        backgroundColor: Theme.secondaryLight,
+        backgroundColor: Theme.white,
         marginHorizontal: 20,
         padding: 20,
         borderRadius: 10,
@@ -79,16 +79,18 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 30,
-        backgroundColor: Theme.primaryDark,
+        backgroundColor: Theme.orange,
         padding: 10,
     },
     buttonDisabled: {
         marginTop: 30,
-        backgroundColor: Theme.primary,
+        backgroundColor: Theme.lightorange,
         padding: 10,
     },
     buttonText: {
-        color: Theme.primaryLight,
+        fontWeight: 'bold',
+        fontSize:20,
+        color: "white",
         textAlign: "center",
     }
 })
