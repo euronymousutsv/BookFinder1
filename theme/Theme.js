@@ -12,6 +12,6 @@ export const Theme = {
     welcome: "hsl(187, 90%, 61%)",
     white:"hsl(0, 0%, 100%)",
     orange:"hsl(20, 100%, 50%)",
-    lightorange:"hsl(20, 65%, 34%)"
-    
+    lightorange:"hsl(20, 65%, 34%)",
+    Paynegray:"hsl(190,8%,42%)"
 }

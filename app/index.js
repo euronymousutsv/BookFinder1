@@ -30,7 +30,7 @@ const createAccount=(email,password)=>{
 
   return (
     <SafeAreaView style={styles.container}>
-    <Text style={{fontWeight:"bold", fontSize:40, color:"white"}}>Book Finder</Text>
+    <Text style={{fontWeight:"bold", fontSize:40, color:Theme.Paynegray}}>Book Finder</Text>
     <AuthenticationForm  title="Register for an account" action="Sign up"  handler={createAccount}/>
    <AlternateAuth text="Already have an account?"
    route="/login"
