@@ -1,4 +1,4 @@
-import { SafeAreaView,StyleSheet } from "react-native"
+import { SafeAreaView,StyleSheet, ImageBackground, Image, Text } from "react-native"
 import { useContext } from "react"
 import { AuthenticationForm } from "../components/AuthenticationForm"
 import { AlternateAuth } from "../components/AlternateAuth"
@@ -20,12 +20,20 @@ export default function Login () {
     }
     return (
         <SafeAreaView style={styles.container}>
+        
+             <ImageBackground source={require('../assets/background.jpg')} style={styles.ImageBackground}>
+             <Image
+        style={styles.Image}
+        source={require("../assets/book.png")}
+      />
+    <Text style={styles.bookFinder}>Book Finder</Text>
             <AuthenticationForm title="Sign in to your account" action="Sign in" handler={SignIn}/>
             <AlternateAuth 
             text="Don't have an account?" 
             route="/"
             linkText="Sign up here"
             />
+            </ImageBackground>
         </SafeAreaView>
     )
 }
@@ -35,4 +43,23 @@ const styles = StyleSheet.create({
         backgroundColor: Theme.primaryDark,
         justifyContent: "center",
     },
-})
+    ImageBackground:{
+        flex:1,
+justifyContent:"center"
+    },
+    Image:{
+        width: 200,
+        height: 200,
+        marginLeft:'auto',
+        marginRight:'auto'
+      },
+      bookFinder: {
+  
+        fontWeight:"bold", 
+        fontSize:40, 
+        color: 'white',
+        marginLeft:'auto',
+        marginRight:'auto'
+    
+      },
+}

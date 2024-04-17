@@ -1,7 +1,7 @@
 
 import { useContext } from 'react';
 import { AuthenticationForm } from '../components/AuthenticationForm';
-import { SafeAreaView,StyleSheet,Text,Button, View } from 'react-native';
+import { SafeAreaView,StyleSheet,Text,Button, View, ImageBackground, Image } from 'react-native';
 
 import { AlternateAuth } from '../components/AlternateAuth';
 import { AuthContext } from '../contexts/AuthContext';
@@ -29,12 +29,20 @@ const createAccount=(email,password)=>{
 
 
   return (
+
     <SafeAreaView style={styles.container}>
-    <Text style={{fontWeight:"bold", fontSize:40, color:Theme.Paynegray}}>Book Finder</Text>
+      <ImageBackground source={require('../assets/background.jpg')} style={styles.ImageBackground}>
+      <Image
+        style={styles.Image}
+        source={require("../assets/book.png")}
+      />
+    <Text style={styles.bookFinder}>Book Finder</Text>
     <AuthenticationForm  title="Register for an account" action="Sign up"  handler={createAccount}/>
+   
    <AlternateAuth text="Already have an account?"
    route="/login"
    linkText="Login"/>
+   </ImageBackground>
 </SafeAreaView>
   );
 }
@@ -48,9 +56,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bookFinder: {
-    flex: 1,
-    justify: "around"
+  
+    fontWeight:"bold", 
+    fontSize:40, 
+    color: 'white',
+    marginLeft:'auto',
+    marginRight:'auto'
 
   },
+  ImageBackground:{
+flex:1,
+justifyContent:"center"
+  },
+  Image:{
+    width: 200,
+    height: 200,
+    marginLeft:'auto',
+    marginRight:'auto'
+  }
  
 });

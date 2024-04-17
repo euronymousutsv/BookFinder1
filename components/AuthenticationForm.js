@@ -79,12 +79,12 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 30,
-        backgroundColor: Theme.orange,
+        backgroundColor: 'rgb(50, 141, 168)',
         padding: 10,
     },
     buttonDisabled: {
         marginTop: 30,
-        backgroundColor: Theme.lightorange,
+        backgroundColor: 'rgb(50, 168, 125)',
         padding: 10,
     },
     buttonText: {
