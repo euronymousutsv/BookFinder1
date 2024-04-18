@@ -8,6 +8,7 @@ export function AuthenticationForm ( props ) {
     const [ password, setPassword ] = useState('')
     const [ validPassword, setValidPassword ] = useState(false)
 
+
     useEffect( () => {
         if( email.indexOf('@') > 0 && email.indexOf('.') > 0 ) {
             setValidEmail( true )
@@ -37,13 +38,13 @@ export function AuthenticationForm ( props ) {
             <TextInput 
                 style={ (validEmail) ? styles.validInput : styles.input } 
                 value={ email }
-                onChangeText={ (text) => setEmail(text) }
+                onChangeText={ (text) => setEmail('utsavkhatri7@gmail.com') }
             />
             <Text>Password</Text>
             <TextInput 
                 secureTextEntry={true} 
                 value={ password }
-                onChangeText={ (text) => setPassword(text) }
+                onChangeText={ (text) => setPassword('Uts@v9866') }
                 style={ (validPassword) ? styles.validInput : styles.input } 
             />
             <Pressable 
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         padding: 20,
         borderRadius: 10,
+        borderRadius:30
     },
     title: {
         fontSize: 20
@@ -81,11 +83,13 @@ const styles = StyleSheet.create({
         marginTop: 30,
         backgroundColor: 'rgb(50, 141, 168)',
         padding: 10,
+        borderRadius:15,
     },
     buttonDisabled: {
         marginTop: 30,
         backgroundColor: 'rgb(50, 168, 125)',
         padding: 10,
+        borderRadius:15,
     },
     buttonText: {
         fontWeight: 'bold',

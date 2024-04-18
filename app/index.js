@@ -5,19 +5,27 @@ import { SafeAreaView,StyleSheet,Text,Button, View, ImageBackground, Image } fro
 
 import { AlternateAuth } from '../components/AlternateAuth';
 import { AuthContext } from '../contexts/AuthContext';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import{router} from "expo-router"
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import{router, useRouter} from "expo-router"
 import { Theme } from '../theme/Theme';
 
 
 
 export default function Register(props) {
 const auth= useContext(AuthContext)
+const router=useRouter()
+
+onAuthStateChanged(auth, (user)=>{
+  if(user){
+    router.replace('./Home')
+  }
+})
+
 const createAccount=(email,password)=>{
     createUserWithEmailAndPassword(auth,email,password)
     .then((userCredential)=>{
         console.log(userCredential.user)
-        router.push('/home')
+        router.replace('/Home')
     })
     .catch((error)=>{
         console.log(error.code,error.message)
@@ -51,7 +59,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection:"column",
     flex: 1,
-    backgroundColor: Theme.welcome,
+    
    
     justifyContent: 'center',
   },
@@ -69,7 +77,8 @@ flex:1,
 justifyContent:"center"
   },
   Image:{
-    width: 200,
+   
+    width:200,
     height: 200,
     marginLeft:'auto',
     marginRight:'auto'
