@@ -17,7 +17,7 @@ const router=useRouter()
 
 onAuthStateChanged(auth, (user)=>{
   if(user){
-    router.replace('./Home')
+    router.replace('./(tabs)/home')
   }
 })
 
@@ -25,7 +25,7 @@ const createAccount=(email,password)=>{
     createUserWithEmailAndPassword(auth,email,password)
     .then((userCredential)=>{
         console.log(userCredential.user)
-        router.replace('/Home')
+        router.replace('/register')
     })
     .catch((error)=>{
         console.log(error.code,error.message)

@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, ImageBackground, FlatList,StatusBar } from "rea
 import { Image } from 'expo-image';
 import { Stack } from "expo-router"
 import { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import {DBContext} from "../contexts/DBContext"
+import { AuthContext } from "../../contexts/AuthContext";
+import {DBContext} from "../../contexts/DBContext"
 import { collection, addDoc, query, getDocs } from "firebase/firestore";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -63,8 +63,7 @@ console.log(listData)
 
 
     return (
-        <ImageBackground source={require('../assets/background.jpg')} style={styles.ImageBackground}>
-       <SafeAreaView> 
+        <SafeAreaView> 
       <FlatList
        data={listData}
        renderItem={({item})=><Item Name={item.Name}  Image={item.Image}/>}
@@ -75,8 +74,7 @@ console.log(listData)
       /> 
       </SafeAreaView>  
 
-        </ImageBackground>
-    )
+       )
 }
 
 const styles=StyleSheet.create({
@@ -96,15 +94,15 @@ const styles=StyleSheet.create({
             marginHorizontal: 16,
           },
           title: {
-            fontSize: 32,
+            fontSize: 20,
             marginLeft:'auto',
             marginRight:'auto',
           },
           Image:{
             marginLeft:'auto',
             marginRight:'auto',
-            height:150,
-            width:100,
+            height:160,
+            width:110,
             flex: 1,
             
             backgroundColor: '#0553',
