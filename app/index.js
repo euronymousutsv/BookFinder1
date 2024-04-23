@@ -17,7 +17,7 @@ const router=useRouter()
 
 onAuthStateChanged(auth, (user)=>{
   if(user){
-    router.replace('./(tabs)/home')
+    router.replace('./register')
   }
 })
 

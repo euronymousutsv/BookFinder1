@@ -13,7 +13,7 @@ export default function Login () {
     
 onAuthStateChanged(auth, (user)=>{
     if(user){
-      router.replace('/(tabs)/home')
+      router.replace('/register')
     }
   })
 
@@ -21,7 +21,7 @@ onAuthStateChanged(auth, (user)=>{
        signInWithEmailAndPassword(auth,email,password)
             .then( (userCredential) => {
                 console.log( userCredential.user )
-                router.replace('/(tabs)/home')
+                router.replace('/register')
             })
             .catch( (error) => {
                 console.log( error.code, error.message )

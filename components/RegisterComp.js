@@ -1,34 +1,29 @@
 import { SafeAreaView,StyleSheet,ImageBackground, Image, Text, Pressable, TextInput, View } from "react-native";
 import { useContext,useEffect,useState } from "react";
 
-import { AuthContext } from "../contexts/AuthContext";
-import { DBContext } from "../contexts/DBContext";
-import { collection, addDoc, query, getDocs, setDoc,doc } from "firebase/firestore";
-import { Theme } from "../theme/Theme";
-import { router, useRouter } from "expo-router";
 
-export default function register(){
-    const auth=useContext(AuthContext)
-    const userId=auth.currentUser.uid
-    const db = useContext(DBContext)
-    const router=useRouter()
+
+
+import { Theme } from "../theme/Theme";
+
+
+export function RegisterComp(props){
+   
+    
+    
     const[FirstName,setFirstName]=useState('')
     const[LastName,setLastName]=useState('')
     const[Address, setAddress]=useState('')
     const[PhoneNumber, setPhoneNumber]=useState('')
 
-    const saveDetails=async()=>{
-        const details={FirstName:FirstName, LastName:LastName, Address:Address, PhoneNumber:PhoneNumber}
-        await setDoc(doc(db,"User",userId),details)
-        console.log("data saved")
-        router.replace("/(tabs)/home")
+    const actionHandler=()=>{
+        props.handler(FirstName,LastName,Address,PhoneNumber)
     }
 
     return(
-        <SafeAreaView style={styles.container}>
-             <ImageBackground style={styles.ImageBackground} source={require('../assets/background.jpg')}>   
+ 
              <View style={styles.view}>        
-             <Text style={styles.title}>User Details</Text>
+             <Text style={styles.title}>{props.title}</Text>
              <Text style={styles.inputtxt}>First Name</Text>
              <TextInput style={styles.input}  onChangeText={(text)=>setFirstName(text)}/>
              <Text style={styles.inputtxt}>Last Name</Text>
@@ -39,13 +34,11 @@ export default function register(){
             <Text style={styles.inputtxt}>PhoneNumber</Text>
             <TextInput style={styles.input}  onChangeText={(text)=>setPhoneNumber(text)}/>
 
-            <Pressable style={styles.button} onPress={()=> saveDetails()}>
-                <Text style={styles.buttonText}>Save Details</Text>
+            <Pressable style={styles.button} onPress={()=> actionHandler}>
+                <Text style={styles.buttonText}>{props.action}</Text>
             </Pressable>
             </View>
-            </ImageBackground>
- 
-        </SafeAreaView>
+      
     )
 }
 const styles=StyleSheet.create({
