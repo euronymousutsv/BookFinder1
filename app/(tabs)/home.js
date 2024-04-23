@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground, FlatList,StatusBar } from "react-native"
+import { View, Text, StyleSheet, ImageBackground, FlatList,StatusBar,Pressable } from "react-native"
 import { Image } from 'expo-image';
 import { Stack } from "expo-router"
 import { useContext, useState, useEffect } from "react";
@@ -6,18 +6,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import {DBContext} from "../../contexts/DBContext"
 import { collection, addDoc, query, getDocs } from "firebase/firestore";
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-const Item = (props) => (
-
-  <View style={styles.item}>
-
-   
-    <Image style={styles.Image} source ={props.Image}
-        transition={1000} contentFit="fill"/> 
-            <Text style={styles.title}>{props.Name}</Text>
-    
-  </View>
-);
+import { router,useRouter } from "expo-router";
 
 
 
@@ -26,6 +15,7 @@ export default function Home( props ) {
 const auth=useContext(AuthContext)
 const userId=auth.currentUser.uid
 const db = useContext(DBContext)
+
 
 
 const [ listData, setListData ] = useState([])
@@ -61,6 +51,22 @@ useEffect( () => {
 
 console.log(listData)
 
+const router=useRouter()
+const actionHandler=()=>{
+  router.push("/Bookinfo")
+}
+
+const Item = (props) => (
+
+  <View style={styles.item}>
+
+   <Pressable onPress={()=>actionHandler()}>
+    <Image style={styles.Image} source ={props.Image}
+        transition={1000} contentFit="fill"/> 
+            <Text style={styles.title}>{props.Name}</Text>
+    </Pressable>
+  </View>
+);
 
     return (
         <SafeAreaView> 
