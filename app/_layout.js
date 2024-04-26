@@ -8,6 +8,7 @@ import { AuthContext } from "../contexts/AuthContext"
 import { ThemeContext } from "../contexts/ThemeContext"
 import { DBContext } from "../contexts/DBContext"
 import { Theme } from "../theme/Theme"
+import { BookProvider } from "../contexts/BookContext"
 export default function Layout() {
     const FBapp = initializeApp(firebaseConfig)
     const FBauth = getAuth(FBapp)
@@ -17,9 +18,11 @@ export default function Layout() {
         <ThemeContext.Provider value={Theme}>
             <AuthContext.Provider value={FBauth} >
                 <DBContext.Provider value={FBdb}>
+                    <BookProvider value={BookProvider}>
                     <SafeAreaView style={styles.appcontainer}>
                         <Stack screenOptions={{ headerShown: false }} />
                     </SafeAreaView>
+                    </BookProvider>
                 </DBContext.Provider>
             </AuthContext.Provider>
         </ThemeContext.Provider>

@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, ImageBackground, FlatList,StatusBar,Pressable } from "react-native"
 import { Image } from 'expo-image';
-import { Stack } from "expo-router"
+import { Stack, usePathname } from "expo-router"
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import {DBContext} from "../../contexts/DBContext"
 import { collection, addDoc, query, getDocs } from "firebase/firestore";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router,useRouter } from "expo-router";
-
+import { useBook } from "../../contexts/BookContext";
 
 
 
@@ -16,10 +16,13 @@ const auth=useContext(AuthContext)
 const userId=auth.currentUser.uid
 const db = useContext(DBContext)
 
+const{updateBookId}=useBook();
+
 
 
 const [ listData, setListData ] = useState([])
 const [start,setstart] = useState(false)
+const[selectedId,setSelectedId]= useState();
 
 const readData= async()=>{
   const q=query(collection(db, 'Book'))
@@ -52,7 +55,8 @@ useEffect( () => {
 console.log(listData)
 
 const router=useRouter()
-const actionHandler=()=>{
+const actionHandler=(itemId)=>{
+updateBookId(itemId)
   router.push("/Bookinfo")
 }
 
@@ -60,7 +64,7 @@ const Item = (props) => (
 
   <View style={styles.item}>
 
-   <Pressable onPress={()=>actionHandler()}>
+   <Pressable onPress={()=>actionHandler(props.itemId)}>
     <Image style={styles.Image} source ={props.Image}
         transition={1000} contentFit="fill"/> 
             <Text style={styles.title}>{props.Name}</Text>
@@ -72,11 +76,12 @@ const Item = (props) => (
         <SafeAreaView> 
       <FlatList
        data={listData}
-       renderItem={({item})=><Item Name={item.Name}  Image={item.Image}/>}
-       
+       renderItem={({item})=><Item itemId={item.id} Name={item.Name}  Image={item.Image}/>}
+        
        //
 
        keyExtractor={item => item.id}
+       extraData = {selectedId}
       /> 
       </SafeAreaView>  
 
