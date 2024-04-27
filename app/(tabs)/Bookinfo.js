@@ -1,11 +1,11 @@
-import { View,SafeAreaView,StyleSheet,Text, TextInput,Pressable } from "react-native";
+import { View,SafeAreaView,StyleSheet,Text, TextInput,Pressable, FlatList, StatusBar } from "react-native";
 import { Image } from 'expo-image';
 import { AuthContext } from "../../contexts/AuthContext";
 import { DBContext } from "../../contexts/DBContext";
 import {useRouter} from "expo-router";
 import { useBook } from "../../contexts/BookContext";
 import { useContext, useEffect, useState } from "react";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, query, getDocs } from "firebase/firestore";
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
@@ -20,15 +20,18 @@ const [bookImage, setbookImage] = useState("")
 const [Name, setName] = useState("")
 const [PublishedYear, setPublishedYear] = useState("")
 const [Data, setData] = useState([])
+const [ listData, setListData ] = useState([])
+
+
 const db=useContext(DBContext)
 const auth=useContext(AuthContext)
     const userId =auth.currentUser.uid 
-    const userEmail =auth.currentUser.userEmail
+    const userEmail =auth.currentUser.email
 const[comment, setComment] =useState("")
 
 const postComment=async()=>{
-    const docRef = doc(db,'Book/${bookId}/Feedback')
-    await setDoc(doc(db,"Book/${bookId}/",userId),comment)
+    const data={Comment:comment, Email:userEmail}
+    await setDoc(doc(db,`Book/${bookId}/Feedback`,userId),data)
     console.log("data saved")
     
 }
@@ -65,6 +68,38 @@ useEffect(()=>{
     loadbookData()
     console.log(bookId);
 }, [bookId,db]);
+
+const readData = async() =>{
+    const q=query(collection(db, `Book/${bookId}/Feedback`))
+  const querySnapshot = await getDocs(q)
+  let data = [];
+      querySnapshot.forEach((doc)=>{
+
+       const {Email,Comment} = doc.data();
+          let item={
+              id: doc.id,
+              Email,
+              Comment,
+            
+          };
+          {/*  let item = doc.data()
+          item.id = doc.id*/}
+          data.push( item )
+         
+      })
+    setListData(data) 
+}
+useEffect( () => {
+    readData()
+   
+  },[start])
+  console.log(listData)
+const Item = (props) => (
+    <View style={styles.flatlistItem}>
+    <Text style={styles.flatListEmail}>{props.Email}</Text>
+    <Text style={styles.flatlistText}>{props.Comment}</Text>
+    </View>
+)
 return(
 <View style={{ justifyContent: 'center', flex: 1 }}>
      
@@ -93,6 +128,19 @@ return(
                 <Text style={styles.buttonText}>Post</Text>
             </Pressable>
 
+</View>
+
+<View style={styles.view}>
+    <Text style={styles.title}>Feedback</Text>
+    <FlatList
+       data={listData}
+       renderItem={({item})=><Item Email={item.Email} Comment={item.Comment} />}
+        
+       //
+
+       keyExtractor={item => item.id}
+     
+      /> 
 </View>
   
       </View>
@@ -172,5 +220,19 @@ const styles=StyleSheet.create({
        fontSize:20,
        color: "white",
        textAlign: "center",
+   },
+   flatlistItem:{
+    marginBottom: 5,
+    marginTop: 5,
+
+   },
+   flatlistText:{
+    backgroundColor: "rgb(217, 215, 215)"
+
+   },
+   flatListEmail:{
+    fontWeight :"bold",
+    fontSize: 15
    }
+   
 })
