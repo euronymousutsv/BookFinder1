@@ -50,7 +50,7 @@ const readData= async()=>{
 useEffect( () => {
   readData()
  
-},[start])
+},[start,db])
 
 console.log(listData)
 

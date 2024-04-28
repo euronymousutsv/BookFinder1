@@ -7,7 +7,7 @@ import { useBook } from "../../contexts/BookContext";
 import { useContext, useEffect, useState } from "react";
 import { collection, doc, getDoc, setDoc, query, getDocs } from "firebase/firestore";
 
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+
 
 export default function Bookinfo(){
    const router = useRouter();
@@ -33,6 +33,7 @@ const postComment=async()=>{
     const data={Comment:comment, Email:userEmail}
     await setDoc(doc(db,`Book/${bookId}/Feedback`,userId),data)
     console.log("data saved")
+    readData();
     
 }
 
@@ -92,7 +93,7 @@ const readData = async() =>{
 useEffect( () => {
     readData()
    
-  },[start])
+  },[bookId,db])
   console.log(listData)
 const Item = (props) => (
     <View style={styles.flatlistItem}>
@@ -104,7 +105,7 @@ return(
 <View style={{ justifyContent: 'center', flex: 1 }}>
      
      <View style={styles.view}>   
-                <Image style={styles.Image} source={bookImage}></Image>
+                <Image style={styles.Image} source={bookImage} transition={1000} contentFit="fill"></Image>
                <Text style={styles.title}>Book Details</Text>
                <Text style={styles.inputtxt}>Name</Text>
                <TextInput style={styles.input} editable={false} defaultValue={Name}  />
@@ -124,7 +125,7 @@ return(
 <View style={styles.view}>
     <Text style={styles.title}>Comment</Text>
     <TextInput style={styles.input}  onChangeText={(text)=>setComment(text)}/>
-    <Pressable style={styles.button} onPress={()=> postComment()}>
+    <Pressable style={styles.button} onPress={()=> {postComment()} }>
                 <Text style={styles.buttonText}>Post</Text>
             </Pressable>
 
@@ -135,7 +136,7 @@ return(
     <FlatList
        data={listData}
        renderItem={({item})=><Item Email={item.Email} Comment={item.Comment} />}
-        
+       
        //
 
        keyExtractor={item => item.id}
