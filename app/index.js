@@ -1,4 +1,4 @@
-
+// this page is used for Registering user into firebase Authentication System. Authentication component has been used in this page to get user email and passsword
 import { useContext } from 'react';
 import { AuthenticationForm } from '../components/AuthenticationForm';
 import { SafeAreaView,StyleSheet,Text,Button, View, ImageBackground, Image } from 'react-native';
@@ -15,13 +15,13 @@ export default function Register(props) {
 const auth= useContext(AuthContext)
 const router=useRouter()
 
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(auth, (user)=>{    //This will route to register Page
   if(user){
     router.replace('./register')
   }
 })
 
-const createAccount=(email,password)=>{
+const createAccount=(email,password)=>{ //Function to interact with firebase Authentication for registering user
     createUserWithEmailAndPassword(auth,email,password)
     .then((userCredential)=>{
         console.log(userCredential.user)

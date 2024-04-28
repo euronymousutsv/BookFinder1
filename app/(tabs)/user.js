@@ -19,19 +19,19 @@ export default function Tab() {
     const[Address, setAddress]=useState('')
     const[PhoneNumber, setPhoneNumber]=useState('')
 
-    const UpdateDetails=async()=>{
+    const UpdateDetails=async()=>{  //this is the function used to update the userData in firebase Db
         const details={FirstName:FirstName, LastName:LastName, Address:Address, PhoneNumber:PhoneNumber}
         await setDoc(doc(db,"User",userId),details)
         console.log("data saved")
         
     }
     const router=useRouter()
-    onAuthStateChanged(auth, (user)=>{
+    onAuthStateChanged(auth, (user)=>{ //Navigate to loginPage while signing Out
         if(!user){
           router.replace('../login')
         }
       })
-    const signUserOut =()=>{
+    const signUserOut =()=>{    //SignOut Function
         signOut(auth)
         .then(()=> console.log("signed out"),
         router.replace("../login")
@@ -41,7 +41,7 @@ export default function Tab() {
         .catch((error)=> console.log(error.code))
     }
     
-    const userData=async()=>{
+    const userData=async()=>{       //Function to get userData from firebase 
 
         const docRef=doc(db,"User",userId)
         const docSnap = await getDoc(docRef)
@@ -76,7 +76,8 @@ export default function Tab() {
     <View style={{ justifyContent: 'center', flex: 1 }}>
      
    <FontAwesome style={styles.icon} size={100} name="user-circle"/>
-   <View style={styles.view}>        
+   <View style={styles.view}>                                           
+             {/* Loaded data from firebase are displayed inside input text component by using default value props */}
              <Text style={styles.title}>User Details</Text>
              <Text style={styles.inputtxt}>First Name</Text>
              <TextInput style={styles.input} editable={false} defaultValue={FirstName}  onChangeText={(text)=>setFirstName(text)}/>

@@ -24,7 +24,7 @@ const [ listData, setListData ] = useState([])
 const [start,setstart] = useState(false)
 const[selectedId,setSelectedId]= useState();
 
-const readData= async()=>{
+const readData= async()=>{  //Function to read book data from Firebase
   const q=query(collection(db, 'Book'))
   const querySnapshot = await getDocs(q)
   let data = [];
@@ -55,8 +55,9 @@ useEffect( () => {
 console.log(listData)
 
 const router=useRouter()
-const actionHandler=(itemId)=>{
-updateBookId(itemId)
+
+const actionHandler=(itemId)=>{ //Navigate to Bookinfo Page
+updateBookId(itemId) //bookProvider context is called to save the bookId
   router.push("/Bookinfo")
 }
 

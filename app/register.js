@@ -1,3 +1,6 @@
+//This page is used to store user information into database. 
+//User id is used as document id in Firebase and other user information is saved inside user doc
+
 import { SafeAreaView,StyleSheet,ImageBackground, Image, Text, Pressable, TextInput, View } from "react-native";
 import { useContext,useEffect,useState } from "react";
 
@@ -7,7 +10,7 @@ import { collection, addDoc, query, getDocs, setDoc,doc } from "firebase/firesto
 import { Theme } from "../theme/Theme";
 import { router, useRouter } from "expo-router";
 
-export default function register(){
+export default function register(){         
     const auth=useContext(AuthContext)
     const userId=auth.currentUser.uid
     const db = useContext(DBContext)
@@ -17,7 +20,7 @@ export default function register(){
     const[Address, setAddress]=useState('')
     const[PhoneNumber, setPhoneNumber]=useState('')
 
-    const saveDetails=async()=>{
+    const saveDetails=async()=>{        //setDoc function from firebase is used to set the document with user id
         const details={FirstName:FirstName, LastName:LastName, Address:Address, PhoneNumber:PhoneNumber}
         await setDoc(doc(db,"User",userId),details)
         console.log("data saved")

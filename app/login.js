@@ -1,3 +1,5 @@
+// This page is used for user Signup
+
 import { SafeAreaView,StyleSheet, ImageBackground, Image, Text } from "react-native"
 import { useContext } from "react"
 import { AuthenticationForm } from "../components/AuthenticationForm"
@@ -11,13 +13,13 @@ export default function Login () {
     const router=useRouter()
 
     
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(auth, (user)=>{ //This will route to Home page which Have tabs on it 
     if(user){
       router.replace('/(tabs)/home')
     }
   })
 
-    const SignIn = ( email, password ) => {
+    const SignIn = ( email, password ) => { //Function to login into firebase Authentication system
        signInWithEmailAndPassword(auth,email,password)
             .then( (userCredential) => {
                 console.log( userCredential.user )

@@ -18,7 +18,7 @@ export default function Layout() {
         <ThemeContext.Provider value={Theme}>
             <AuthContext.Provider value={FBauth} >
                 <DBContext.Provider value={FBdb}>
-                    <BookProvider value={BookProvider}>
+                    <BookProvider value={BookProvider}>   {/*This context is called to provide bookid from flatlist which is inside of home page to Bookinfo */}
                     <SafeAreaView style={styles.appcontainer}>
                         <Stack screenOptions={{ headerShown: false }} />
                     </SafeAreaView>

@@ -11,8 +11,8 @@ import { collection, doc, getDoc, setDoc, query, getDocs } from "firebase/firest
 
 export default function Bookinfo(){
    const router = useRouter();
-   const {bookId}=useBook();
-const IDBook = bookId
+   const {bookId}=useBook();    //use of context to call the bookId from home page
+
 const[start, setstart] = useState(false)
 const[Author, setAuthor] = useState("")
 const[ Description, setDescription] = useState("")
@@ -29,7 +29,7 @@ const auth=useContext(AuthContext)
     const userEmail =auth.currentUser.email
 const[comment, setComment] =useState("")
 
-const postComment=async()=>{
+const postComment=async()=>{    //Function to add the comment provided by user
     const data={Comment:comment, Email:userEmail}
     await setDoc(doc(db,`Book/${bookId}/Feedback`,userId),data)
     console.log("data saved")
@@ -37,7 +37,7 @@ const postComment=async()=>{
     
 }
 
-const loadbookData=async()=>{
+const loadbookData=async()=>{ //Function to load the data of single book from Book in firebase
 
     const docRef=doc(db,"Book",bookId)
     const docSnap = await getDoc(docRef)
@@ -70,7 +70,7 @@ useEffect(()=>{
     console.log(bookId);
 }, [bookId,db]);
 
-const readData = async() =>{
+const readData = async() =>{    //Function to read the comments of users inside Book/Bookid/Feedback which is used to provide the data to comment flatlist
     const q=query(collection(db, `Book/${bookId}/Feedback`))
   const querySnapshot = await getDocs(q)
   let data = [];
